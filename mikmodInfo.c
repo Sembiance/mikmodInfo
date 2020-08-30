@@ -62,6 +62,7 @@ int main(int argc, char ** argv)
 {
 	MODULE * module;
 	struct sigaction sa;
+	UWORD i;
 
     memset(&sa, 0, sizeof(struct sigaction));
     sigemptyset(&sa.sa_mask);
@@ -90,6 +91,16 @@ int main(int argc, char ** argv)
 	printf("channels:%d\n", module->numchn);
 	printf("patterns:%d\n", module->numpat);
 	printf("samples:%d\n", module->numsmp);
+
+	if(module->samples)
+	{
+		printf("instruments:\n");
+		for(i=0;i<module->numsmp;i++)
+		{
+			printf("%s\n", module->samples[i].samplename);
+		}		
+	}
+
 	Player_Free(module);
 
 	MikMod_Exit();
